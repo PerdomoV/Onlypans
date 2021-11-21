@@ -79,3 +79,12 @@ import { Document } from "mongoose";
 - Agregar a la interface la herencia:
 export interface IProduct extends Document{
 
+
+## Programar el servicio y el controlador:
+
+15. configurar el modulo de product "product.module.ts"
+
+- Importar el MongooseModule
+- Agregar en imports Mongoose.forFeature
+
+
