@@ -14,10 +14,25 @@ export class ProductService {
         return products;
     }
 
+    async getProduct(productID: String): Promise<IProduct>{
+        const product = await this.productModel.findById(productID);
+        return product;
+    }
+
     async createProduct(createProductDTO: CreateProductDTO): Promise<IProduct>{
         const product = await new this.productModel(createProductDTO);
         return product;
     }
 
+    async deleteProduct(productID: String): Promise<IProduct>{
+        const deletedProduct = await this.productModel.findByIdAndDelete(productID);
+        return deletedProduct;
+    }
+    
+    async updateProduct(productID: String, editProduct: CreateProductDTO): Promise<IProduct> {
+        const updatedProduct = await this.productModel.findByIdAndUpdate(productID, 
+            editProduct, { new: true });
+        return updatedProduct;
+    }
 
 }

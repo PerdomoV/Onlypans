@@ -1,5 +1,5 @@
-import { Controller, Res, Body } from '@nestjs/common';
-import { Get, Post, Put, Delete, HttpStatus } from '@nestjs/common';
+import { Controller, Res, Body, Param } from '@nestjs/common';
+import { Get, Post, Put, Delete, HttpStatus, NotFoundException } from '@nestjs/common';
 import { ProductService } from './product.service';
 import { CreateProductDTO } from './dto/create_product.dto';
 
@@ -20,6 +20,14 @@ export class ProductController {
         );
     }
 
+    @Get('/:productID')
+    async fetchProduct(@Res() res, @Param('productID') productID){
+        const product = await this.productService.getProduct(productID);
+        if(!product) throw new NotFoundException('El producto no existe')
+        return res.status(HttpStatus).json(product);
+    }
+
+
     @Post()
     async createProduct(@Res() res, @Body() createProductDTO: CreateProductDTO){
         const product = await this.productService.createProduct(createProductDTO);
@@ -28,4 +36,27 @@ export class ProductController {
             product: product
         });
     }
+
+
+    @Put('/:productID')
+    async updateProduct(@Res() res, @Body() editProduct:CreateProductDTO, @Param('productID') productID){
+        const updatedProduct = await this.productService.updateProduct(productID, editProduct);
+        if (!updatedProduct) throw new NotFoundException('El producto no existe');
+        return res.status(HttpStatus.OK).json({
+            message: 'Producto actualizado exitosamente',
+            updatedProduct: updatedProduct
+        });
+    }
+
+    @Delete('/:productID')
+    async deleteProduct(@Res() res, @Param('ProductID') productID){
+        const deletedProduct = await this.productService.deleteProduct(productID);
+        if(!deletedProduct) throw new NotFoundException('El producto no existe');
+        return res.status(HttpStatus.OK).json({
+            message: 'Producto borrado exitosamente',
+            productDeleted: deletedProduct
+        });
+    }
+
+
 }
