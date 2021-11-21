@@ -24,7 +24,7 @@ export class ProductController {
     async fetchProduct(@Res() res, @Param('productID') productID){
         const product = await this.productService.getProduct(productID);
         if(!product) throw new NotFoundException('El producto no existe')
-        return res.status(HttpStatus).json(product);
+        return res.status(HttpStatus.OK).json(product);
     }
 
 
