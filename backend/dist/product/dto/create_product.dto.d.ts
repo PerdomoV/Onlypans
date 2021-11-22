@@ -1,6 +1,6 @@
 export declare class CreateProductDTO {
-    readonly name: String;
-    readonly description: String;
-    readonly price: Number;
-    readonly urlToImage: String;
+    readonly name: string;
+    readonly description: string;
+    readonly price: number;
+    readonly urlToImage: string;
 }

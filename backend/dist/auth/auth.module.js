@@ -6,24 +6,24 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AppModule = void 0;
+exports.AuthModule = void 0;
 const common_1 = require("@nestjs/common");
-const app_controller_1 = require("./app.controller");
-const app_service_1 = require("./app.service");
+const auth_service_1 = require("./auth.service");
+const auth_controller_1 = require("./auth.controller");
 const mongoose_1 = require("@nestjs/mongoose");
-const product_module_1 = require("./product/product.module");
-const auth_module_1 = require("./auth/auth.module");
-let AppModule = class AppModule {
+const auth_schema_1 = require("./schemas/auth.schema");
+let AuthModule = class AuthModule {
 };
-AppModule = __decorate([
+AuthModule = __decorate([
     (0, common_1.Module)({
         imports: [
-            mongoose_1.MongooseModule.forRoot('mongodb://localhost/onlypans', { useNewUrlParser: true }),
-            product_module_1.ProductModule, auth_module_1.AuthModule
+            mongoose_1.MongooseModule.forFeature([
+                { name: 'Auth', schema: auth_schema_1.AuthSchema }
+            ])
         ],
-        controllers: [app_controller_1.AppController],
-        providers: [app_service_1.AppService],
+        providers: [auth_service_1.AuthService],
+        controllers: [auth_controller_1.AuthController]
     })
-], AppModule);
-exports.AppModule = AppModule;
-//# sourceMappingURL=app.module.js.map
+], AuthModule);
+exports.AuthModule = AuthModule;
+//# sourceMappingURL=auth.module.js.map

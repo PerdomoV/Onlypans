@@ -12,40 +12,37 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ProductService = void 0;
+exports.AuthService = void 0;
 const common_1 = require("@nestjs/common");
+const common_2 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
-let ProductService = class ProductService {
-    constructor(productModel) {
-        this.productModel = productModel;
+const bcrypt = require('bcrypt');
+let AuthService = class AuthService {
+    constructor(authModel) {
+        this.authModel = authModel;
     }
-    async getProducts() {
-        const products = await this.productModel.find();
-        return products;
+    async signinLocal(authDTO) {
+        const auth = await this.authModel.find({ email: authDTO.email });
+        const user = auth[0];
+        if (!user)
+            throw new common_2.UnauthorizedException('Credenciales incorrectas');
+        const passHashed = user.password;
+        const passComparisionResult = await bcrypt.compare(authDTO.password, passHashed);
+        if (!passComparisionResult)
+            throw new common_2.UnauthorizedException('Credenciales incorrectas');
+        return user;
     }
-    async getProduct(productID) {
-        const product = await this.productModel.findById(productID);
-        console.log(product.price);
-        return product;
-    }
-    async createProduct(createProductDTO) {
-        const product = await new this.productModel(createProductDTO);
-        return await product.save();
-    }
-    async deleteProduct(productID) {
-        const deletedProduct = await this.productModel.findByIdAndDelete(productID);
-        return deletedProduct;
-    }
-    async updateProduct(productID, editProduct) {
-        const updatedProduct = await this.productModel.findByIdAndUpdate(productID, editProduct, { new: true });
-        return updatedProduct;
+    async signupLocal(authDTO) {
+        const passwordHashed = await bcrypt.hash(authDTO.password, 10);
+        authDTO.password = passwordHashed;
+        const user = await new this.authModel(authDTO);
     }
 };
-ProductService = __decorate([
+AuthService = __decorate([
     (0, common_1.Injectable)(),
-    __param(0, (0, mongoose_1.InjectModel)('Product')),
+    __param(0, (0, mongoose_1.InjectModel)('Auth')),
     __metadata("design:paramtypes", [mongoose_2.Model])
-], ProductService);
-exports.ProductService = ProductService;
-//# sourceMappingURL=product.service.js.map
+], AuthService);
+exports.AuthService = AuthService;
+//# sourceMappingURL=auth.service.js.map
