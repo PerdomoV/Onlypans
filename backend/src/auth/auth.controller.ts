@@ -1,4 +1,4 @@
-import { Controller, Post, Body } from '@nestjs/common';
+import { Controller, Post, Body, HttpStatus, Res } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthDTO } from './dto/auth.dto';
 
@@ -8,13 +8,19 @@ export class AuthController {
     constructor(private authService: AuthService){}
 
     @Post('local/signin')
-    signinLocal(@Body() authDTO: AuthDTO){
-        return this.authService.signinLocal(authDTO);
+    async signinLocal(@Res() res, @Body() authDTO: AuthDTO){
+        const logged = await this.authService.signinLocal(authDTO);
+        return res.status(HttpStatus.OK).json({
+            accessToken: logged
+        })
     }
 
     @Post('local/signup')
-    signupLocal(@Body() authDTO: AuthDTO){
-        return this.authService.signupLocal(authDTO);
+    async signupLocal(@Res() res, @Body() authDTO: AuthDTO){
+        const registro = await this.authService.signupLocal(authDTO);
+        return res.status(HttpStatus.OK).json({
+            message: registro
+        });
     }
 
 }

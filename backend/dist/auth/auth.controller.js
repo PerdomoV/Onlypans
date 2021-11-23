@@ -20,26 +20,34 @@ let AuthController = class AuthController {
     constructor(authService) {
         this.authService = authService;
     }
-    signinLocal(authDTO) {
-        return this.authService.signinLocal(authDTO);
+    async signinLocal(res, authDTO) {
+        const logged = await this.authService.signinLocal(authDTO);
+        return res.status(common_1.HttpStatus.OK).json({
+            accessToken: logged
+        });
     }
-    signupLocal(authDTO) {
-        return this.authService.signupLocal(authDTO);
+    async signupLocal(res, authDTO) {
+        const registro = await this.authService.signupLocal(authDTO);
+        return res.status(common_1.HttpStatus.OK).json({
+            message: registro
+        });
     }
 };
 __decorate([
     (0, common_1.Post)('local/signin'),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Res)()),
+    __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [auth_dto_1.AuthDTO]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:paramtypes", [Object, auth_dto_1.AuthDTO]),
+    __metadata("design:returntype", Promise)
 ], AuthController.prototype, "signinLocal", null);
 __decorate([
     (0, common_1.Post)('local/signup'),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Res)()),
+    __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [auth_dto_1.AuthDTO]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:paramtypes", [Object, auth_dto_1.AuthDTO]),
+    __metadata("design:returntype", Promise)
 ], AuthController.prototype, "signupLocal", null);
 AuthController = __decorate([
     (0, common_1.Controller)('auth'),

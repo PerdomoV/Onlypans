@@ -1,16 +1,18 @@
 import { Injectable } from '@nestjs/common';
 import { AuthDTO } from './dto/auth.dto';
-import { UnauthorizedException } from '@nestjs/common';
+import { UnauthorizedException, InternalServerErrorException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { IAuth } from './interfaces/auth.interface';
 const bcrypt = require('bcrypt');
 import { Document } from 'mongoose';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AuthService {
 
-    constructor(@InjectModel('Auth') private readonly authModel: Model<IAuth> ){}
+    constructor(@InjectModel('Auth') private readonly authModel: Model<IAuth>,
+                private jwtService: JwtService ){}
 
     async signinLocal(authDTO: AuthDTO){
         //retrieve the user
@@ -22,15 +24,26 @@ export class AuthService {
         //Aquí va el hasheo de la contraseña con bcrypt
         const passComparisionResult: boolean = await bcrypt.compare(authDTO.password, passHashed);
         if( !passComparisionResult ) throw new UnauthorizedException('Credenciales incorrectas');
-        return user;
+        return await this.signUser(user.id, user.email, 'user');
     }
 
     async signupLocal(authDTO: AuthDTO){
         
         const passwordHashed = await bcrypt.hash(authDTO.password, 10);
         authDTO.password = passwordHashed;
-        const user = await new this.authModel(authDTO);
+        const user = new this.authModel(authDTO);
+        const usuario = await user.save();
+        if( !usuario ) throw new InternalServerErrorException('Internal server error');
+        return 'Registro completado exitosamente';
 
+    }
+
+    async signUser(userId: number, email: string, type: string){
+        return await this.jwtService.sign({
+            sub: userId,
+            email,
+            type: type, 
+        });
     }
 }
 

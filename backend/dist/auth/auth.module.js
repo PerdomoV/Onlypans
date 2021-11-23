@@ -12,6 +12,7 @@ const auth_service_1 = require("./auth.service");
 const auth_controller_1 = require("./auth.controller");
 const mongoose_1 = require("@nestjs/mongoose");
 const auth_schema_1 = require("./schemas/auth.schema");
+const jwt_1 = require("@nestjs/jwt");
 let AuthModule = class AuthModule {
 };
 AuthModule = __decorate([
@@ -19,7 +20,10 @@ AuthModule = __decorate([
         imports: [
             mongoose_1.MongooseModule.forFeature([
                 { name: 'Auth', schema: auth_schema_1.AuthSchema }
-            ])
+            ]),
+            jwt_1.JwtModule.register({
+                secret: 'super-secret-cat',
+            })
         ],
         providers: [auth_service_1.AuthService],
         controllers: [auth_controller_1.AuthController]

@@ -18,9 +18,11 @@ const common_2 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
 const bcrypt = require('bcrypt');
+const jwt_1 = require("@nestjs/jwt");
 let AuthService = class AuthService {
-    constructor(authModel) {
+    constructor(authModel, jwtService) {
         this.authModel = authModel;
+        this.jwtService = jwtService;
     }
     async signinLocal(authDTO) {
         const auth = await this.authModel.find({ email: authDTO.email });
@@ -31,18 +33,30 @@ let AuthService = class AuthService {
         const passComparisionResult = await bcrypt.compare(authDTO.password, passHashed);
         if (!passComparisionResult)
             throw new common_2.UnauthorizedException('Credenciales incorrectas');
-        return user;
+        return await this.signUser(user.id, user.email, 'user');
     }
     async signupLocal(authDTO) {
         const passwordHashed = await bcrypt.hash(authDTO.password, 10);
         authDTO.password = passwordHashed;
-        const user = await new this.authModel(authDTO);
+        const user = new this.authModel(authDTO);
+        const usuario = await user.save();
+        if (!usuario)
+            throw new common_2.InternalServerErrorException('Internal server error');
+        return 'Registro completado exitosamente';
+    }
+    async signUser(userId, email, type) {
+        return await this.jwtService.sign({
+            sub: userId,
+            email,
+            type: type,
+        });
     }
 };
 AuthService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, mongoose_1.InjectModel)('Auth')),
-    __metadata("design:paramtypes", [mongoose_2.Model])
+    __metadata("design:paramtypes", [mongoose_2.Model,
+        jwt_1.JwtService])
 ], AuthService);
 exports.AuthService = AuthService;
 //# sourceMappingURL=auth.service.js.map
