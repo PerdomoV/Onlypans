@@ -28,9 +28,7 @@ let AuthController = class AuthController {
     }
     async signupLocal(res, authDTO) {
         const registro = await this.authService.signupLocal(authDTO);
-        return res.status(common_1.HttpStatus.OK).json({
-            message: registro
-        });
+        return res.status(common_1.HttpStatus.OK).json(registro);
     }
 };
 __decorate([

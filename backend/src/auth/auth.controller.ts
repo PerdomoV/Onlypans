@@ -18,9 +18,7 @@ export class AuthController {
     @Post('local/signup')
     async signupLocal(@Res() res, @Body() authDTO: AuthDTO){
         const registro = await this.authService.signupLocal(authDTO);
-        return res.status(HttpStatus.OK).json({
-            message: registro
-        });
+        return res.status(HttpStatus.OK).json(registro);
     }
 
 }

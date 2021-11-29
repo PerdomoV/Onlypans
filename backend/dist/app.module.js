@@ -13,13 +13,15 @@ const app_service_1 = require("./app.service");
 const mongoose_1 = require("@nestjs/mongoose");
 const product_module_1 = require("./product/product.module");
 const auth_module_1 = require("./auth/auth.module");
+const pedido_module_1 = require("./pedido/pedido.module");
+const order_module_1 = require("./order/order.module");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
     (0, common_1.Module)({
         imports: [
             mongoose_1.MongooseModule.forRoot('mongodb://localhost/onlypans', { useNewUrlParser: true }),
-            product_module_1.ProductModule, auth_module_1.AuthModule
+            product_module_1.ProductModule, auth_module_1.AuthModule, pedido_module_1.PedidoModule, order_module_1.OrderModule
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],

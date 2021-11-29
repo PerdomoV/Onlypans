@@ -42,11 +42,11 @@ let AuthService = class AuthService {
         const usuario = await user.save();
         if (!usuario)
             throw new common_2.InternalServerErrorException('Internal server error');
-        return 'Registro completado exitosamente';
+        return { success: true, message: 'Registro completado exitosamente' };
     }
     async signUser(userId, email, type) {
         return await this.jwtService.sign({
-            sub: userId,
+            id: userId,
             email,
             type: type,
         });

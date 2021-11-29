@@ -34,13 +34,13 @@ export class AuthService {
         const user = new this.authModel(authDTO);
         const usuario = await user.save();
         if( !usuario ) throw new InternalServerErrorException('Internal server error');
-        return 'Registro completado exitosamente';
+        return { success: true, message: 'Registro completado exitosamente' }
 
     }
 
     async signUser(userId: number, email: string, type: string){
         return await this.jwtService.sign({
-            sub: userId,
+            id: userId,
             email,
             type: type, 
         });
