@@ -12,12 +12,8 @@ export class ProductController {
     @Get()
     async fetchAllProducts(@Res() res){
         const products = await this.productService.getProducts();
-        return res.status(HttpStatus.CREATED).json(
-            {
-                message: 'Products listed',
-                products: products
-            }
-        );
+        return res.status(HttpStatus.CREATED).json(products);
+            
     }
 
     @Get('/:productID')

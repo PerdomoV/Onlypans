@@ -16,12 +16,12 @@ export class AuthService {
 
   constructor(private readonly httpClient: HttpClient) { }
 
-  async login(user: IUser): Promise< Observable<ILoginStatus> >{
-    return await this.httpClient.post<ILoginStatus>(`${this.API_URL}/auth/login`, user);
+  login(user: IUser): Observable<ILoginStatus>{
+    return this.httpClient.post<ILoginStatus>(`${this.API_URL}/auth/local/signin`, user);
   }
 
-  async register(user: IUser): Promise< Observable<IRegistrationStatus> >{
-    return await this.httpClient.post<IRegistrationStatus>(`${this.API_URL}/auth/register`, user);
+  register(user: IUser): Observable<IRegistrationStatus>{
+    return this.httpClient.post<IRegistrationStatus>(`${this.API_URL}/auth/local/signup`, user);
   }
 
   isLoggedIn():boolean{

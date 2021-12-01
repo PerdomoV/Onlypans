@@ -5,7 +5,8 @@ const mongoose_1 = require("mongoose");
 exports.AuthSchema = new mongoose_1.Schema({
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
-    role: { type: String, default: 'cliente' }
+    role: { type: String, default: 'cliente' },
+    address: { type: String }
 }, {
     timestamps: true
 });

@@ -1,17 +1,9 @@
-<div class="container-fluid">
-    <div class="row">
-        <div class="col">
-            
-        </div>
-    </div>
-    <div class="row">
-        <div class="col">
-            
-        </div>
-    </div>
-    <div class="row">
-        <div class="col">
-            
-        </div>
+<div class="container">
+    <div *ngFor="let product of products">
+        <app-product [name]="product.name" 
+                    [description]="product.description"
+                    [urlToImage]="product.urlToImage"
+                    [price]="product.price"           
+                    ></app-product>
     </div>
 </div>

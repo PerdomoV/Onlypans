@@ -23,10 +23,7 @@ let ProductController = class ProductController {
     }
     async fetchAllProducts(res) {
         const products = await this.productService.getProducts();
-        return res.status(common_2.HttpStatus.CREATED).json({
-            message: 'Products listed',
-            products: products
-        });
+        return res.status(common_2.HttpStatus.CREATED).json(products);
     }
     async fetchProduct(res, productID) {
         const product = await this.productService.getProduct(productID);

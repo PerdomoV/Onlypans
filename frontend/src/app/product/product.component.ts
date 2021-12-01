@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { getMatInputUnsupportedTypeError } from '@angular/material/input';
 
 @Component({
   selector: 'app-product',
@@ -6,6 +7,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./product.component.css']
 })
 export class ProductComponent implements OnInit {
+
+  @Input() name: string = "";
+  @Input() description: string = "";
+  @Input() price: string = "";
+  @Input() urlToImage: string = "";
+
 
   constructor() { }
 
