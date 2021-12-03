@@ -6,7 +6,7 @@ exports.orderSchema = new mongoose_1.Schema({
     address: { type: String, required: true },
     cost: { type: Number, required: true },
     state: { type: String, required: true },
-    user_id: [{ type: mongoose_1.Schema.Types.ObjectId, ref: 'Auth' }]
+    user_id: [{ type: mongoose_1.Schema.Types.ObjectId, ref: 'Auth', default: " " }]
 }, {
     timestamps: true
 });
