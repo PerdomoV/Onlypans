@@ -9,11 +9,13 @@ export class NavbarComponent implements OnInit {
 
 
   image: string = "../../assets/logo.png";
-
+  
 
   constructor() { }
 
   ngOnInit(): void {
   }
+
+  
 
 }

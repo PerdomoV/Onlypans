@@ -22,7 +22,6 @@ export class ProductsComponent implements OnInit {
         //console.log(res[0]);  res es un array
         // this.router.navigate(['/dashboard']);
         this.products = res;
-        console.log("urlToImage: ",res[0].urlToImage);
 
       },
       err => console.log(err)

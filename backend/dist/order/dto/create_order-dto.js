@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CreatePedidoDTO = void 0;
-class CreatePedidoDTO {
+exports.CreateOrderDTO = void 0;
+class CreateOrderDTO {
 }
-exports.CreatePedidoDTO = CreatePedidoDTO;
+exports.CreateOrderDTO = CreateOrderDTO;
 //# sourceMappingURL=create_order-dto.js.map

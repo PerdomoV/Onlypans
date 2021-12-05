@@ -3,7 +3,7 @@
     <!-- <br/>
     <br/> -->
 
-    <div *ngIf="!accessToken">
+    <div *ngIf="accessToken==='null'">
 
         <div class="alert alert-primary" role="alert">
             No estás autenticado(a), ¡inicia sesión o regístrate!
@@ -22,11 +22,11 @@
             <div class="espacio">
                 <button type="submit" class="btn btn-primary" >Iniciar Sesión</button>
                 
-                <button type="submit" class="btn btn-danger" >Registrarse</button>
+                <button type="button" class="btn btn-danger" [routerLink]="['register']">Registrarse</button>
             </div>
         </form>
     </div>
-    <div *ngIf="accessToken">
+    <div *ngIf="accessToken!=='null'">
         <app-account></app-account>
     </div>
 </div>

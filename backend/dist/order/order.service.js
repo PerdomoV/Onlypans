@@ -20,9 +20,9 @@ let OrderService = class OrderService {
     constructor(orderModel) {
         this.orderModel = orderModel;
     }
-    async createOrder(createProductDTO) {
-        const product = await new this.orderModel(createProductDTO);
-        return await product.save();
+    async createOrder(createOrderDTO) {
+        const order = await new this.orderModel(createOrderDTO);
+        return await order.save();
     }
 };
 OrderService = __decorate([

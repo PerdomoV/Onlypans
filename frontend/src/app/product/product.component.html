@@ -3,6 +3,6 @@
     <div class="card-body">
       <h5 class="card-title">{{ name }} - ${{ price }}</h5>
       <p class="card-text">{{ description }}</p>
-      <a [routerLink]="['order']" class="btn btn-primary">Comprar</a>
+      <a [routerLink]="['order','id','name','price']" class="btn btn-primary">Comprar</a>
     </div>
 </div>

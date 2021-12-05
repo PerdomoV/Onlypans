@@ -32,7 +32,7 @@ __decorate([
     __param(0, (0, common_2.Res)()),
     __param(1, (0, common_2.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object, create_order_dto_1.CreatePedidoDTO]),
+    __metadata("design:paramtypes", [Object, create_order_dto_1.CreateOrderDTO]),
     __metadata("design:returntype", Promise)
 ], OrderController.prototype, "createOrder", null);
 OrderController = __decorate([

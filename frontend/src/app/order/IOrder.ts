@@ -1,4 +1,4 @@
-export declare class CreateOrderDTO {
+export interface IOrder{
     readonly mensaje?: string | null;
     readonly address: string | null;
     readonly price: string | null;

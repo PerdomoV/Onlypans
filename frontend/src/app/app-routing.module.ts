@@ -14,8 +14,9 @@ const routes: Routes = [
   { path: 'productos', component: ProductsComponent  },
   // { path: 'contacto', component: ContactComponent  },
   { path: 'cuenta', component: AccountComponent  },
-  { path: 'register', component: RegisterComponent  },
-  { path: 'productos/order',   component: OrderComponent  },
+  { path: 'login/register', component: RegisterComponent  },
+  { path: 'productos/order/:id/:name/:price',   component: OrderComponent  },
+
 
 ];
 
